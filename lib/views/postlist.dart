@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sample_blog/utilities/utilities.dart';
+import 'package:sample_blog/views/add_post.dart';
 
 class PostList extends StatelessWidget {
   @override
@@ -89,6 +90,23 @@ class PostList extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: Container(
+        height: 80,
+        width: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color: Colors.red,
+        ),
+        child: GestureDetector(
+          onTap: () => Get.to(() => AddPost()),
+          child: Icon(
+            Icons.add,
+            size: 50,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
