@@ -133,6 +133,8 @@ class AddPost extends StatelessWidget {
                         timestamp: DateTime.now(),
                       );
                       var response = await _postController.addPost(post);
+                    }else{
+                      Get.snackbar('Empty Contents', "You cannot leave any of the fiedls empty");
                     }
                   },
                   child: Text(

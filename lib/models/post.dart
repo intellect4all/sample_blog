@@ -41,7 +41,7 @@ class Post {
       slug: snap.data()["slug"],
       blogContent: snap.data()["blogContent"],
       blogTitle: snap.data()['blogTitle'],
-      timestamp: snap.data()['timestamp'],
+      timestamp: DateTime.fromMicrosecondsSinceEpoch(snap.data()['timestamp'].microsecondsSinceEpoch),
     );
   }
 }

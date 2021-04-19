@@ -1,12 +1,17 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:sample_blog/models/post.dart';
 import 'package:sample_blog/services/firebase_services.dart';
 
 class PostController extends GetxController {
   FirebaseServices _firebaseServices = FirebaseServices();
-  List postLists = [];
+  final postList = <Post>[].obs;
+  StreamSubscription _listener;
+
   @override
   void onInit() {
+    fetchData();
     super.onInit();
   }
 
@@ -19,6 +24,26 @@ class PostController extends GetxController {
       Get.snackbar('Success', 'Post has been added to collection');
     } else {
       Get.snackbar('Error', 'Something went wrong. Please try again later.');
+    }
+  }
+
+  Future<void> fetchData() async {
+    _listener = _firebaseServices.getPost().listen(
+      (event) {
+        postList.assignAll(
+            event.docs.map((doc) => Post.fromSnapshot(doc)).toList());
+        
+      },
+    );
+  }
+
+  Future<void> deletePost(String slug) async {
+    var res = await _firebaseServices.deletePost(slug);
+    if (res == "success") {
+      Get.back();
+      Get.snackbar('Success', 'Post has been successfully deleted.');
+    } else {
+      Get.snackbar('Error', 'Something happened while deleting');
     }
   }
 }
