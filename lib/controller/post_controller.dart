@@ -15,13 +15,13 @@ class PostController extends GetxController {
     fetchData();
     super.onInit();
   }
-  
 
+// this function edits the post
   Future<void> editPost(Post post, {String slug}) async {
     var res = await _firebaseServices.editPost(post, slug: slug);
 
     if (res == "success") {
-      Get.offAll(()=>PostList());
+      Get.offAll(() => PostList());
       Get.snackbar('Success', 'Post edited successfully');
     } else {
       Get.snackbar('Error',
@@ -30,7 +30,6 @@ class PostController extends GetxController {
   }
 
   Future<void> addPost(Post post) async {
-    // print(post.toMap().toString());
     var res = await _firebaseServices.addPosts(post);
     if (res == 'post exists') {
       Get.snackbar('Post Exists', 'This posts already exists');
