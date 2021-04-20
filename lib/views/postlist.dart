@@ -5,6 +5,7 @@ import 'package:sample_blog/controller/post_controller.dart';
 import 'package:sample_blog/models/post.dart';
 import 'package:sample_blog/utilities/utilities.dart';
 import 'package:sample_blog/views/add_post.dart';
+import 'package:sample_blog/views/post_details.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:intl/intl.dart';
 
@@ -32,7 +33,7 @@ class PostList extends StatelessWidget {
                   ),
                   SizedBox(height: spacing),
                   Obx(() {
-                    return Expanded(
+                    return _postController.postList.isEmpty? Text('No blog post available') : Expanded(
                       child: ListView.builder(
                           physics: BouncingScrollPhysics(),
                           itemCount: _postController.postList.length,
@@ -43,7 +44,7 @@ class PostList extends StatelessWidget {
                               elevation: 3,
                               child: InkWell(
                                 onTap: () {
-                                  print(_post.slug);
+                                  Get.to(() => PostDetails(post: _post));
                                 },
                                 onLongPress: () {
                                   return Get.bottomSheet(
@@ -134,10 +135,12 @@ class PostList extends StatelessWidget {
                                               Text(
                                                 _post.blogTitle.capitalizeFirst,
                                                 style: GoogleFonts.lato(
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   fontWeight: FontWeight.w900,
                                                   height: 1.3,
                                                 ),
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
                                               Expanded(
                                                 child: SizedBox(
